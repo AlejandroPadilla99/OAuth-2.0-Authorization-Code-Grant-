@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth Authorization Request</title>
+</head>
+<body>
+    <h2>Authorization Request</h2>
+    <form action="/oauth/authorize" method="post">
+        <input type="hidden" name="client_id" value="{{ client_id }}">
+        <input type="hidden" name="redirect_uri" value="{{ redirect_uri }}">
+        <input type="hidden" name="response_type" value="{{ response_type }}">
+        <input type="hidden" name="state" value="{{ state }}">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="example@gmail.com" required><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="test1234" required><br>
+
+        <button type="submit" name="decision" value="approve">Enter</button>
+    </form>
+    <script>
+      function submitForm() {
+          // Get form data
+          var form = document.getElementById("oauthForm");
+          var formData = new FormData(form);
+
+          // Construct the redirection URL
+          var redirectUrl = "/oauth/authorize" + new URLSearchParams(formData).toString();
+
+          // Redirect the user
+          window.location.href = redirectUrl;
+      }
+  </script>
+</body>
+</html>
