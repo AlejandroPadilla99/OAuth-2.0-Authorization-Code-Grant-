@@ -1,12 +1,13 @@
 import sqlite3
 
-connection = sqlite3.connect(database='database.db')
-
+connection = None
 cursor =  None
 
-def get_cursor():
+def get_db_objects() -> tuple:
     global cursor
-    if cursor == None:
+    global connection
+    if cursor == None and connection:
+        connection = sqlite3.connect(database='database.db')
         cursor = connection.cursor()
-    return cursor
+    return connection, cursor
         

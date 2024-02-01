@@ -1,6 +1,17 @@
-from connection import get_cursor
+from connection import get_db_objects
 
-cursor = get_cursor()
+conection, cursor = get_db_objects()
+
+def daos_insert_user(username: str, email: str, password: str) -> dict:
+    query = """
+        INSERT INSTO USER (username, email, password)
+        VALUES (?,?,?)
+    """
+    try:
+        cursor.execute(query, (email, password))
+        result = cursor.fetchone
+    except Exception as e:
+        print("somthing wrong on the daos")
 
 def daos_get_user(email: str, password: str) -> str:
     query = """
