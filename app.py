@@ -3,6 +3,7 @@ from router.oauth import oauth
 
 app = Flask(__name__)
 app.register_blueprint(oauth)
+app.secret_key = 'your_secret_key_here'
 
 @app.route("/login")
 def login():

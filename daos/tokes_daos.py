@@ -27,6 +27,3 @@ def daos_insert_code(user_uuid: str, code: str) -> bool:
         cursor.execute(query,(user_uuid))
     except Exception as e:
         return False
-
-ans = daos_create_token_for_user(user_uuid="550e8400-e29b-41d4-a716-446655440000")
-print(ans)

@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, request, session, jsonify
 
 #services
-from services.tokens_services import get_oauth_code, get_request_permission_data, valid_authorization_code, get_grant_token
+from services.tokens_services import get_oauth_code, get_request_permission_data, valid_authorization_code, get_grant_token, valid_client_id
 
 oauth = Blueprint('oauth', __name__)
 
@@ -10,6 +10,8 @@ def oauth_login():
     query_params = get_request_permission_data(args=request.args)
     if query_params:
         session['query_params'] = query_params
+        #if valid_client_id(client_id=session.get('client_id')):
+        
         return redirect("/login")
     else:
         error_response = {
@@ -21,8 +23,8 @@ def oauth_login():
 @oauth.route("/oauth/authorize", methods=['POST'])
 def oauth_authorize():
     code = get_oauth_code()
-    query_params = session.get('query_params')
-    callback_url = query_params['redirect_uri']
+    query_params = session.get("query_params")
+    callback_url = query_params["redirect_uri"]
     location = f"{callback_url}?code={code}"
     location += "&state=" + query_params['state']
     return redirect(location, code=302)
