@@ -1,0 +1,34 @@
+@startuml
+    entity users {
+        *user_uuid: uuid (uuid v2)
+        *username: varchar
+        *password: varchar
+        *created_at: timestamp (default: NOW)
+        *updated_at: timestamp (default: NOW)
+        *deleted_at: timestamp (default: NULL)
+    }
+
+    entity oauth_codes {
+        *uuid: uuid(uuid v2)
+        *user_uuid: uuid (uuid v2)
+        *code: varchar
+        *valid: bool (default TRUE)
+        *created_at: timestamp (default: NOW)
+        *updated_at: timestamp (default: NOW)
+        *deleted_at: timestamp (default: NULL)
+    }
+
+    entity refresh_token {
+        *uuid: uuid (uuid v2)
+        *user_uuid: uuid (uuid v2)
+        *token: varchar
+        *created_at: timestamp (default: NOW)
+        *updated_at: timestamp (default: NOW)
+        *deleted_at: timestamp (default: NULL)
+    }
+
+    ' Relations '
+    users ||--|| oauth_codes
+    users ||--|| refresh_token
+   
+@enduml
